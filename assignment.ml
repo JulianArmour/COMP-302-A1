@@ -17,3 +17,13 @@ let cube_root (x:float) =
         | false -> aux (g'_cube g x) x
     in
     aux 1.0 x
+
+let fast_exp (base, power) =
+    let rec aux factor base power =
+        match power with
+        | 0 -> 1
+        | 1 -> factor * base
+        | _ when odd power -> aux (factor * base) (base * base) ((power - 1) / 2)
+        | _ -> aux factor (base * base) (power / 2)
+    in
+    aux 1 base power
